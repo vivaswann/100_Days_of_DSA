@@ -1,45 +1,66 @@
-/*Problem: Given an array of n integers, reverse the array in-place using two-pointer approach.
+/*Problem: A system receives two separate logs of user arrival times from two different servers. Each log is already sorted in ascending order. Your task is to create a single chronological log that preserves the correct order of arrivals.
 
 Input:
-- First line: integer n
-- Second line: n space-separated integers
+- First line: integer p (number of entries in server log 1)
+- Second line: p sorted integers representing arrival times from server 1
+- Third line: integer q (number of entries in server log 2)
+- Fourth line: q sorted integers representing arrival times from server 2)
 
 Output:
-- Print the reversed array, space-separated
+- Print a single line containing all arrival times in chronological order, separated by spaces
 
 Example:
 Input:
 5
-1 2 3 4 5
+10 20 30 50 70
+4
+15 25 40 60
 
 Output:
-5 4 3 2 1
+10 15 20 25 30 40 50 60 70
 
-Explanation: Swap pairs from both ends: (1,5), (2,4), middle 3 stays*/
-
+Explanation: Compare the next unprocessed arrival time from both logs and append the earlier one to the final log until all entries are processed*/
 #include <stdio.h>
 
 int main() {
-    int n;
-    scanf("%d", &n);
+    int p, q;
 
-    int arr[n];
-    for (int i = 0; i < n; i++) {
-        scanf("%d", &arr[i]);
+    // Read first log
+    scanf("%d", &p);
+    int A[p];
+    for (int i = 0; i < p; i++) {
+        scanf("%d", &A[i]);
     }
 
-    int left = 0, right = n - 1;
-    while (left < right) {
-        int temp = arr[left];
-        arr[left] = arr[right];
-        arr[right] = temp;
-
-        left++;
-        right--;
+    // Read second log
+    scanf("%d", &q);
+    int B[q];
+    for (int i = 0; i < q; i++) {
+        scanf("%d", &B[i]);
     }
 
-    for (int i = 0; i < n; i++) {
-        printf("%d ", arr[i]);
+    int i = 0, j = 0;
+
+    // Merge both logs
+    while (i < p && j < q) {
+        if (A[i] <= B[j]) {
+            printf("%d ", A[i]);
+            i++;
+        } else {
+            printf("%d ", B[j]);
+            j++;
+        }
+    }
+
+    // Remaining entries
+    while (i < p) {
+        printf("%d ", A[i]);
+        i++;
+    }
+
+    while (j < q) {
+        printf("%d ", B[j]);
+        j++;
     }
 
     return 0;
