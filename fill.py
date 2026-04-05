@@ -2,13 +2,13 @@ import os
 import random
 from datetime import datetime, timedelta
 
-start = datetime(2026, 2, 1)
-end = datetime(2026, 3, 30)
+start = datetime(2026, 4, 5)
+end = datetime(2026, 4, 30)
 
 current = start
 
 while current <= end:
-    commits_per_day = random.randint(6, 12)
+    commits_per_day = random.randint(1,3)
 
     for i in range(commits_per_day):
         time_offset = random.randint(0, 86400)
